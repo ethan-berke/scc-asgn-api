@@ -5,7 +5,9 @@
 let mongoose = require("mongoose");
 
 var asgnSchema = mongoose.Schema({
-    courseName: String,
+    courseName: {
+        type: String
+    },
     assignmentName: {
         type: String,
         required: true
@@ -16,7 +18,7 @@ var asgnSchema = mongoose.Schema({
     }
 });
 
-var Assignment = module.exports = mongoose.model("Assignment2", asgnSchema);
+var Assignment = module.exports = mongoose.model("Assignment", asgnSchema);
 module.exports.get = function (callback, limit) {
     Assignment.find(callback).limit(limit);
 }

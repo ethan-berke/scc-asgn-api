@@ -8,9 +8,10 @@
 
 let express = require('express');
 let app = express();
-const asgnRouter = require('.asgn-router');
+const asgnRouter = require('./asgn-router');
 let mongoose = require("mongoose");
 let bodyParser = require("body-parser");
+require('dotenv/config');
 
 //mongoose and body parser
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //connect to mongoose
-mongoose.connect("mongodb+srv://admin:admin@rest.eqe2a.mongodb.net/test", {useNewUrlParser: true});
+mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true});
 var db = mongoose.connection;
 
 if(!db) {
@@ -31,7 +32,7 @@ var port = 3000;
 
 app.use("/asgn-api", asgnRouter);
 
-app.get('/', (req, res) => res.send('Welcome to Asgn-API!'));
+app.get('/', (req, res) => res.send('Welcome to Asgn-API! Navigate to /asgn-api to start'));
 
 app.listen(port, function () {
     console.log(`Runnning Asgn-API on port ` + port);
